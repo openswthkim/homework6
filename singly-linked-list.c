@@ -177,23 +177,23 @@ int insertNode(headNode* h, int key) {
 /**
  * list에 key에 대한 노드하나를 추가
  */
-int insertLast(headNode* h, int key) {
+int insertLast(headNode* h, int key) { 
 
-	listNode* node = (listNode*)malloc(sizeof(listNode));
-	node->key = key;
-	node->link = NULL;
+	listNode* node = (listNode*)malloc(sizeof(listNode)); // node에 listnode 크기 만큼 메모리 할당
+	node->key = key; // node의 key에 key값 저장
+	node->link = NULL; // node에 link에 NULL값 저장
 
-	if (h->first == NULL)
+	if (h->first == NULL) // h의 first가 NULL이면
 	{
-		h->first = node;
+		h->first = node; // h의 first에 node 저장
 		return 0;
 	}
 
-	listNode* n = h->first;
-	while(n->link != NULL) {
-		n = n->link;
+	listNode* n = h->first; // 포인터 변수 n에 h의 first 저장
+	while(n->link != NULL) { // n의 link가 NULL이 아닐 동안 반복
+		n = n->link; // n에 n의 link값 저장
 	}
-	n->link = node;
+	n->link = node; // n의 link 값을 node에 저장
 	return 0;
 }
 
@@ -202,11 +202,11 @@ int insertLast(headNode* h, int key) {
  */
 int insertFirst(headNode* h, int key) {
 
-	listNode* node = (listNode*)malloc(sizeof(listNode));
-	node->key = key;
+	listNode* node = (listNode*)malloc(sizeof(listNode)); // node에 listnode 크기만큼의 메모리 할당
+	node->key = key; // node의 key를 key에 저장
 
-	node->link = h->first;
-	h->first = node;
+	node->link = h->first; // node의 link에 h의 first값 저장
+	h->first = node; // h의 first값에 node값 저장
 
 	return 0;
 }
@@ -216,30 +216,30 @@ int insertFirst(headNode* h, int key) {
  */
 int deleteNode(headNode* h, int key) {
 
-	if (h->first == NULL)
+	if (h->first == NULL) // h의 first가 NULL이면
 	{
-		printf("nothing to delete.\n");
+		printf("nothing to delete.\n"); // 출력
 		return 0;
 	}
 
-	listNode* n = h->first;
-	listNode* trail = NULL;
+	listNode* n = h->first; // n에 h의 first 저장
+	listNode* trail = NULL; // 포인터 traill에 NULL 저장
 
 	/* key를 기준으로 삽입할 위치를 찾는다 */
-	while(n != NULL) {
-		if(n->key == key) {
+	while(n != NULL) { // n이 NULL이 아닐 동안 반복한다
+		if(n->key == key) { // n의 key가 key이면
 			/* 첫 노드 앞쪽에 삽입해야할 경우 인지 검사 */
-			if(n == h->first) {
-				h->first = n->link;
+			if(n == h->first) { // n이 h의 first와 같으면
+				h->first = n->link; // h의 first에 n의 link 대입
 			} else { /* 중간인 경우거나 마지막인 경우 */
-				trail->link = n->link;
+				trail->link = n->link; // 아니면 trail의 link에 n의 link 대입
 			}
-			free(n);
+			free(n); // n의 메모리 해제
 			return 0;
 		}
 
-		trail = n;
-		n = n->link;
+		trail = n; // trail에 n 저장
+		n = n->link; // n에 n의 link 저장
 	}
 
 	/* 찾지 못 한경우 */
@@ -253,32 +253,32 @@ int deleteNode(headNode* h, int key) {
  */
 int deleteLast(headNode* h) {
 
-	if (h->first == NULL)
+	if (h->first == NULL) // h의 first가 NULL이면
 	{
 		printf("nothing to delete.\n");
 		return 0;
 	}
 
-	listNode* n = h->first;
-	listNode* trail = NULL;
+	listNode* n = h->first; // n에 h의 first 저장
+	listNode* trail = NULL; // 포인터 변수 traill에 NULL 저장
 
 	/* 노드가 하나만 있는 경우, 즉 first node == last node인  경우 처리 */
-	if(n->link == NULL) {
-		h->first = NULL;
-		free(n);
+	if(n->link == NULL) { // n의 link가 NULL이면
+		h->first = NULL; // h의 first에 NULL 저장
+		free(n); // n의 메모리 초기화
 		return 0;
 	}
 
 	/* 마지막 노드까지 이동 */
-	while(n->link != NULL) {
-		trail = n;
-		n = n->link;
+	while(n->link != NULL) { // n의 link가 NULL이 아닐 동안 반복
+		trail = n; // trail에 n저장
+		n = n->link; // n에 n의 link 저장
 	}
 
 	/* n이 삭제되므로, 이전 노드의 링크 NULL 처리 */
-	trail->link = NULL;
-	free(n);
-
+	trail->link = NULL; // trail의 link에 NULL 저장
+	free(n); // n의 메모리 해제
+ 
 	return 0;
 }
 /**
@@ -286,15 +286,15 @@ int deleteLast(headNode* h) {
  */
 int deleteFirst(headNode* h) {
 
-	if (h->first == NULL)
+	if (h->first == NULL) // h의 frst가 NULL이면
 	{
-		printf("nothing to delete.\n");
+		printf("nothing to delete.\n"); // 출력
 		return 0;
 	}
-	listNode* n = h->first;
+	listNode* n = h->first; // 포인터 변수 n에 h의 first 저장
 
-	h->first = n->link;
-	free(n);
+	h->first = n->link; // h의 first에 n의 link 저장
+	free(n); // n에 할당된 메모리 해제
 
 	return 0;
 }
@@ -306,44 +306,44 @@ int deleteFirst(headNode* h) {
 int invertList(headNode* h) {
 
 
-	if(h->first == NULL) {
-		printf("nothing to invert...\n");
+	if(h->first == NULL) { // h의 first가 NULL이면
+		printf("nothing to invert...\n"); // 출력
 		return 0;
 	}
-	listNode *n = h->first;
-	listNode *trail = NULL;
-	listNode *middle = NULL;
+	listNode *n = h->first; // n에 h의 first 저장
+	listNode *trail = NULL; // trail에 NULL 저장
+	listNode *middle = NULL; // middle에 NULL 저장
 
-	while(n != NULL){
-		trail = middle;
-		middle = n;
-		n = n->link;
-		middle->link = trail;
+	while(n != NULL){ // n이 NULL이 아닐때까지 반복
+		trail = middle; // trail에 middle값 저장
+		middle = n; // middle에 n저장
+		n = n->link; // n에 n의 link 저장
+		middle->link = trail; // middle의 link에 trail 저장
 	}
 
-	h->first = middle;
+	h->first = middle; // h의 first에 middle 저장
 
 	return 0;
 }
 
 
 void printList(headNode* h) {
-	int i = 0;
-	listNode* p;
+	int i = 0; // 정수형 변수 선언
+	listNode* p; // 포인터 변수 선언
 
 	printf("\n---PRINT\n");
 
-	if(h == NULL) {
+	if(h == NULL) { // h가 NULL이라면
 		printf("Nothing to print....\n");
 		return;
 	}
 
-	p = h->first;
+	p = h->first; // p에 h의 first 저장
 
-	while(p != NULL) {
-		printf("[ [%d]=%d ] ", i, p->key);
-		p = p->link;
-		i++;
+	while(p != NULL) { // p가 NULL이 아닌동안 반복
+		printf("[ [%d]=%d ] ", i, p->key); // i의 p 출력
+		p = p->link; // p에 p의 link 저장
+		i++; // i값 증가
 	}
 
 	printf("  items = %d\n", i);
